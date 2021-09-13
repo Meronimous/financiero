@@ -1,10 +1,10 @@
-package com.efip.financiero
+package com.contaduria.movimientofinanciero
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class FinancieroApplicationTests {
+class MovimientofinancieroApplicationTests {
 
     @Test
     fun contextLoads() {

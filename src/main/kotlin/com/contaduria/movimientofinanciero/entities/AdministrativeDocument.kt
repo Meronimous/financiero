@@ -1,8 +1,14 @@
-package com.efip.financiero.entities
+package com.contaduria.movimientofinanciero.entities
 
+import lombok.*
 import javax.persistence.*
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@ToString
 class AdministrativeDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

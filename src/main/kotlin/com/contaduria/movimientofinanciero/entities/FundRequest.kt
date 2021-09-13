@@ -1,4 +1,4 @@
-package com.efip.financiero.entities
+package com.contaduria.movimientofinanciero.entities
 
 import javax.persistence.*
 

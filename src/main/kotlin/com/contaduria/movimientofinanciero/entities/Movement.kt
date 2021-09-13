@@ -1,4 +1,4 @@
-package com.efip.financiero.entities
+package com.contaduria.movimientofinanciero.entities
 import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
@@ -27,7 +27,7 @@ public class Movement {
 
     @OneToOne
     @JoinColumn(name = "fund_request_id")
-    var pedidoFondo:FundRequest?=null ;
+    var pedidoFondo: FundRequest?=null ;
 
     var codOrden:Int? = null;
 
@@ -39,5 +39,5 @@ public class Movement {
     
     @OneToOne
     @JoinColumn(name = "user_id")
-    var usuario:User? = null;
+    var usuario: User? = null;
 }
