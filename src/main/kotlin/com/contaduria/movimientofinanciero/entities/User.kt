@@ -14,5 +14,5 @@ class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     open var id: Long? = null
-
+//Usuarios
 }

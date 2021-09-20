@@ -49,4 +49,6 @@ public class Movement {
     @OneToOne
     @JoinColumn(name = "user_id")
     lateinit var user: User
+
+    //Movimientos
 }

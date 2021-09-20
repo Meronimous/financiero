@@ -27,5 +27,5 @@ class FundRequest {
     @OneToOne
     @JoinColumn(name = "administrative_document_id")
     lateinit var administrativeDocument:AdministrativeDocument
-
+//Pedidos de Fondos
 }
