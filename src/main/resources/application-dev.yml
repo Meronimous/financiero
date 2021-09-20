@@ -1,0 +1,75 @@
+server:
+  port: 8080
+  max-http-header-size: 40KB
+#spring:
+#  profiles:
+#    active: local
+  jackson:
+    time-zone: America/Buenos_Aires
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      org:
+        hibernate:
+          envers:
+            audit_table_prefix: audit_
+            audit_table_suffix: 
+            revision_field_name: revision_id
+            revision_type_field_name: revision_type
+            use-new-id-generator-mappings: false
+            store_data_at_delete: true
+  datasource:   
+    url: jdbc:postgresql://financieroback.herokuapp.com:5432/d2r57bjnodido2
+    username: yfmhnizeutmqjt
+    password: 71daa250de6b1ddecf0dfffa1e2e4d5490fa07f97915e070353437cf647e7f2b
+  servlet:
+    multipart:
+      enabled: true      
+      file-size-threshold: 0
+      max-file-size: 5000000
+      max-request-size: 10000000
+  sql:
+    init:
+      platform: postgres
+logging:
+  file-path: 'C:\Users\alive\Desktop\Dropbox\UES21\EFIP\SISTEMA\BACKEND\logs'
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.boot.SpringApplication: DEBUG
+    org.springframework.web: DEBUG
+    org.financiero.api.controllers: DEBUG
+    org.financiero.api.security: DEBUG
+    org.financiero.api.services: DEBUG
+    org.springframework.data: DEBUG
+    org.hibernate: DEBUG
+    org.hibernate.stat: DEBUG
+    io.swagger.models.parameters.AbstractSerializableParameter: ERROR
+  file:
+    name: 'financiero.log'
+security: 
+  aes:
+    token:
+      secret-key: "5??\u0018????Z???j?I\b\u001c?Al%}p4??&@???\u007f"
+    x-apikey: "{local.tesoreria}.{0d1d33f9-97b7-4b8d-bdad-f94f3bc371ab}"
+presupuesto-api:
+  url: "https://dev.api.presupuesto.misiones.gob.ar"
+core-api:
+  url: "https://dev.coreapi.misiones.gob.ar"
+providers-api:
+  url: "https://proveedores.misiones.gob.ar:8080"
+api-general-treasury:
+  url: "https://apitest.tesoreriageneral.com.ar"
+  user: "api_teso_test"
+  password: "Mv0872-cG82nV6-x"
+img:
+  file-path: "https://dev.safi2.misiones.gob.ar/static/img/"
+  accounting-logo: "contaduria.png"
+temp:
+  file-path: 'C:\Users\alive\Desktop\Dropbox\REPOS\logs\'
+uploadfolder:
+  file-path: 'C:\Users\alive\Desktop\Dropbox\REPOS\PedidosFondosAPIvar\uploaded'   
