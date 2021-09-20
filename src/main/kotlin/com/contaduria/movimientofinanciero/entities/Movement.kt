@@ -1,43 +1,52 @@
 package com.contaduria.movimientofinanciero.entities
+import lombok.*
+import org.hibernate.validator.constraints.Range
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
+import javax.validation.constraints.Positive
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@ToString
 public class Movement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    open var id: Long = 0
 
-    var codMovimiento:Long? = null
+    var movementCode:Long = 0
 
-    @OneToOne
-    @JoinColumn(name = "administrative_document_id")
-    var expediente:AdministrativeDocument? =null
 
-    var descripcion:String? =  null
+    var description:String = ""
 
-    @Temporal(TemporalType.DATE)
-    var Fecha:Date? = null
+    lateinit var date:LocalDate
 
-    var comprobanteNumero:Int? = null
+    @Positive
+    var certificateNumber:Int = 0
 
-    var ordenNum:Int? = null
+    @Positive
+    var numOrder:Int = 0
 
     @OneToOne
     @JoinColumn(name = "fund_request_id")
-    var pedidoFondo: FundRequest?=null
+    lateinit var fundRequest: FundRequest
 
-    var codOrden:Int? = null
+    @Range(min=1,max=9)
+    var orderCod:Int = 0
+    @Range(min=1,max=9)
+    var fundClass:Int = 0
+    @Range(min=1,max=9)
+    var imputationCode:Int = 0
 
-    var claseFondo:Int? = null
+    @Positive
+    var movementAmount: BigDecimal = BigDecimal.ZERO
 
-    var codInputacion:Int? = null
-
-    var importeMovimiento: BigDecimal? = null
-    
     @OneToOne
     @JoinColumn(name = "user_id")
-    var usuario: User? = null
+    lateinit var user: User
 }

@@ -6,10 +6,12 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.function.Executable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
+
+import org.assertj.core.api.Assertions.assertThat
+
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -18,23 +20,54 @@ internal class AdministrativeDocumentTest {
 
     @Autowired
     lateinit var administrativeDocumentRepository: AdministrativeDocumentRepository
+
     @BeforeEach
     fun setUp() {
-        administrativeDocument.id = 1
-        administrativeDocument.codOrganismo = 3080
-        administrativeDocument.yearExpediente = 2020
-        administrativeDocument.numero = 123
+        administrativeDocument.id = 0
+        administrativeDocument.codOrganism = 3080
+        administrativeDocument.year = 2020
+        administrativeDocument.number = 123
     }
 
     @AfterEach
     fun tearDown() {
         this.administrativeDocumentRepository.deleteAll()
     }
+    //save
+    @Test
+    internal fun ShouldSaveEntity(){
+        var administrativeDocumentRetrieved:AdministrativeDocument = this.administrativeDocumentRepository.save(administrativeDocument)
+        assertThat(administrativeDocumentRetrieved)
+            .hasFieldOrProperty("id")
+            .hasFieldOrPropertyWithValue("numero",administrativeDocument.number)
+            .hasFieldOrPropertyWithValue("codOrganismo",administrativeDocument.codOrganism)
+            .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
+    }
+    //findById
+    @Test
+    internal fun ShouldfindEntityById(){
+//        var administrativeDocumentRetrieved:AdministrativeDocument =this.administrativeDocumentRepository.save(administrativeDocument)
+//        this.administrativeDocumentRepository.findById(administrativeDocumentRetrieved.id).get()
+//        assertThat(administrativeDocumentRetrieved)
+//            .hasFieldOrProperty("id")
+//            .hasFieldOrPropertyWithValue("numero",administrativeDocument.number)
+//            .hasFieldOrPropertyWithValue("codOrganismo",administrativeDocument.codOrganism)
+//            .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
+
+    }
+    //delete
+    @Test
+    internal fun ShouldDeleteEntity(){
+
+//        var administrativeDocumentRetrieved:AdministrativeDocument =this.administrativeDocumentRepository.save(administrativeDocument)
+//        this.administrativeDocumentRepository.deleteById(administrativeDocumentRetrieved.id)
+    }
+    //DeleteAll
 
 //number
 @Test
 internal fun ShouldThrowExceptionIfNumberIsNegative() {
-    administrativeDocument.numero= -1
+    administrativeDocument.number= -1
     assertThrows(ConstraintViolationException::class.java) {
         this.administrativeDocumentRepository.save(administrativeDocument)
     }
@@ -42,14 +75,14 @@ internal fun ShouldThrowExceptionIfNumberIsNegative() {
 //codOrganism
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsNegative() {
-        administrativeDocument.codOrganismo= -1000
+        administrativeDocument.codOrganism= -1000
         assertThrows(ConstraintViolationException::class.java) {
             this.administrativeDocumentRepository.save(administrativeDocument)
         }
 }
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsLessThanFourDigits() {
-        administrativeDocument.codOrganismo= 999
+        administrativeDocument.codOrganism= 999
 assertThrows(ConstraintViolationException::class.java) {
     this.administrativeDocumentRepository.save(administrativeDocument)
 }
@@ -57,7 +90,7 @@ assertThrows(ConstraintViolationException::class.java) {
 
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsMoreThanFourDigits() {
-        administrativeDocument.codOrganismo= 10001
+        administrativeDocument.codOrganism= 10001
         assertThrows(ConstraintViolationException::class.java) {
             this.administrativeDocumentRepository.save(administrativeDocument)
         }
@@ -66,7 +99,7 @@ assertThrows(ConstraintViolationException::class.java) {
 //    Year
 @Test
 internal fun ShouldThrowExceptionIfYearIsBelowRange() {
-    administrativeDocument.yearExpediente= 2015
+    administrativeDocument.year= 2015
     assertThrows(ConstraintViolationException::class.java) {
         this.administrativeDocumentRepository.save(administrativeDocument)
     }
@@ -74,7 +107,7 @@ internal fun ShouldThrowExceptionIfYearIsBelowRange() {
 
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsAboveRange() {
-        administrativeDocument.yearExpediente= 2100
+        administrativeDocument.year= 2100
         assertThrows(ConstraintViolationException::class.java) {
             this.administrativeDocumentRepository.save(administrativeDocument)
         }

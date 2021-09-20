@@ -4,6 +4,7 @@ import lombok.*
 import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 import org.hibernate.validator.constraints.Range
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
 
 
@@ -17,16 +18,23 @@ class AdministrativeDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    open var id: Long = 0
 
     @NotNull
     @Range(min=1000,max=9999)
-    var codOrganismo:Int = 0
+    var codOrganism:Int = 0
+
     @NotNull
-    @Positive
-    var numero:Int = 0
+    @Positive(message="el número debe ser positivo mayor a cero")
+    var number:Int = 0
     @NotNull
+
     @Range(min=2016,max=2099)
-    var yearExpediente:Int =0
+    var year:Int =0
+
+    @NotNull
+    @NotBlank
+    var Description:String =""
+
 
 }
