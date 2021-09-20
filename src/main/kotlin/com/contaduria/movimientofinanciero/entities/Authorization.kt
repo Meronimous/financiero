@@ -14,5 +14,5 @@ class Authorization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     open var id: Long? = null
-/Autorizaciones
+//Autorizaciones
 }
