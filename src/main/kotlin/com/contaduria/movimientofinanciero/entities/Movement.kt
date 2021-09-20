@@ -14,30 +14,30 @@ public class Movement {
 
     @OneToOne
     @JoinColumn(name = "administrative_document_id")
-    var expediente:AdministrativeDocument? =null;
+    var expediente:AdministrativeDocument? =null
 
-    var descripcion:String? =  null;
+    var descripcion:String? =  null
 
     @Temporal(TemporalType.DATE)
-    var Fecha:Date? = null;
+    var Fecha:Date? = null
 
-    var comprobanteNumero:Int? = null;
+    var comprobanteNumero:Int? = null
 
-    var ordenNum:Int? = null;
+    var ordenNum:Int? = null
 
     @OneToOne
     @JoinColumn(name = "fund_request_id")
-    var pedidoFondo: FundRequest?=null ;
+    var pedidoFondo: FundRequest?=null
 
-    var codOrden:Int? = null;
+    var codOrden:Int? = null
 
-    var claseFondo:Int? = null;
+    var claseFondo:Int? = null
 
-    var codInputacion:Int? = null;
+    var codInputacion:Int? = null
 
-    var importeMovimiento: BigDecimal? = null;
+    var importeMovimiento: BigDecimal? = null
     
     @OneToOne
     @JoinColumn(name = "user_id")
-    var usuario: User? = null;
+    var usuario: User? = null
 }
