@@ -3,6 +3,6 @@ info:
   Description: API de Movimientos Financieros
 spring:
   profiles:
-    active: local
+    active: dev
   application:
     name: API Movimientos Financieros

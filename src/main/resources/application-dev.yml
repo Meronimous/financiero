@@ -22,7 +22,7 @@ server:
             use-new-id-generator-mappings: false
             store_data_at_delete: true
   datasource:   
-    url: jdbc:postgresql://financieroback.herokuapp.com:5432/d2r57bjnodido2
+    url: jdbc:postgresql://ec2-52-0-114-209.compute-1.amazonaws.com:5432/d2r57bjnodido2
     username: yfmhnizeutmqjt
     password: 71daa250de6b1ddecf0dfffa1e2e4d5490fa07f97915e070353437cf647e7f2b
   servlet:
