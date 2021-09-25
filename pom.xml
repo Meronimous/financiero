@@ -130,7 +130,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>
-                                MovimientofinancieroApplication.kt
+                                MovimientoFinancieroApplication.java
                             </mainClass>
                         </manifest>
                     </archive>
