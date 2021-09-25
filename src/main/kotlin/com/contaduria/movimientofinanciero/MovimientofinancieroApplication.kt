@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @SpringBootApplication
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean::class)
-class MovimientofinancieroApplication : WebMvcConfigurer {
+open class MovimientofinancieroApplication : WebMvcConfigurer {
     override fun addArgumentResolvers(argumentResolvers: MutableList<HandlerMethodArgumentResolver>) {
         argumentResolvers.add(SpecificationArgumentResolver())
         argumentResolvers.add(PageableHandlerMethodArgumentResolver())
