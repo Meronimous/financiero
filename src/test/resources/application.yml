@@ -1,0 +1,8 @@
+info:
+  version: 0.1.6
+  Description: API de Movimientos Financieros
+spring:
+  profiles:
+    active: test
+  application:
+  name: API Movimientos Financieros
