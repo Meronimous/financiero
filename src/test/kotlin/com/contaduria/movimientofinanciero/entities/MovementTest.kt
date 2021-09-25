@@ -1,7 +1,11 @@
 package com.contaduria.movimientofinanciero.entities
 
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository
+import com.contaduria.movimientofinanciero.repositories.FundRequestRepository
+import com.contaduria.movimientofinanciero.repositories.MovementRepository
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -18,11 +22,11 @@ import java.time.LocalDate
 class  MovementTest {
     var movement:Movement = Movement()
 
-//    @Autowired
-//    lateinit var movementRepository: MovementRepository
-//
-//    @Autowired
-//    lateinit var fundRequestRepository: FundRequestRepository
+    @Autowired
+    lateinit var movementRepository: MovementRepository
+
+    @Autowired
+    lateinit var fundRequestRepository: FundRequestRepository
 
     @Autowired
     lateinit var administrativeDocumentRepository: AdministrativeDocumentRepository
@@ -44,7 +48,7 @@ class  MovementTest {
     @BeforeEach
     fun setUp() {
         ADMINISTRATIVEDOCUMENT.codOrganism = 3080
-        ADMINISTRATIVEDOCUMENT.Description = " anjkbsdb"
+        ADMINISTRATIVEDOCUMENT.description = " anjkbsdb"
         ADMINISTRATIVEDOCUMENT.year = 2020
         ADMINISTRATIVEDOCUMENT.number = 123
 
@@ -54,7 +58,7 @@ class  MovementTest {
         FUNDREQUEST.organismCode = 3223
         FUNDREQUEST.date = DATE
 
-//        movement.fundRequest =this.fundRequestRepository.save(FUNDREQUEST)
+        movement.fundRequest =this.fundRequestRepository.save(FUNDREQUEST)
         movement.id = ID
         movement.date = DATE
         movement.orderCod = ORDERCOD
@@ -70,33 +74,33 @@ class  MovementTest {
 
     @AfterEach
     fun tearDown() {
-//        this.movementRepository.deleteAll()
-//        this.fundRequestRepository.deleteAll()
+        this.movementRepository.deleteAll()
+        this.fundRequestRepository.deleteAll()
         this.administrativeDocumentRepository.deleteAll()
     }
     //save
     @Test
     internal fun ShouldSaveEntity(){
-//        var movementRetrieved:Movement = this.movementRepository.save(movement)
-//        Assertions.assertThat(movementRetrieved)
-//            .hasFieldOrProperty("id")
+        var movementRetrieved:Movement = this.movementRepository.save(movement)
+        assertThat(movementRetrieved)
+            .hasFieldOrProperty("id")
 
     }
     //findById
     @Test
     internal fun ShouldfindEntityById(){
-//        var movementRetrieved:Movement =this.movementRepository.save(movement)
-//        this.movementRepository.findById(movementRetrieved.id).get()
-//        Assertions.assertThat(movementRetrieved)
-//            .hasFieldOrProperty("id")
+        var movementRetrieved:Movement =this.movementRepository.save(movement)
+        this.movementRepository.findById(movementRetrieved.id).get()
+        assertThat(movementRetrieved)
+            .hasFieldOrProperty("id")
 
     }
     //delete
     @Test
     internal fun ShouldDeleteEntity(){
-//
-//        var movementRetrieved:Movement =this.movementRepository.save(movement)
-//        this.movementRepository.deleteById(movementRetrieved.id)
+
+        var movementRetrieved:Movement =this.movementRepository.save(movement)
+        this.movementRepository.deleteById(movementRetrieved.id)
     }
     //DeleteAll
 }

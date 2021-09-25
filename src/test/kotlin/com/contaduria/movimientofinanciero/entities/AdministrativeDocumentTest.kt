@@ -27,7 +27,7 @@ internal class AdministrativeDocumentTest {
     fun setUp() {
         administrativeDocument.id = 0
         administrativeDocument.codOrganism = 3080
-        administrativeDocument.Description = " anjkbsdb"
+        administrativeDocument.description = " anjkbsdb"
         administrativeDocument.year = 2020
         administrativeDocument.number = 123
     }
@@ -53,8 +53,8 @@ internal class AdministrativeDocumentTest {
         this.administrativeDocumentRepository.findById(administrativeDocumentRetrieved.id).get()
         assertThat(administrativeDocumentRetrieved)
             .hasFieldOrProperty("id")
-            .hasFieldOrPropertyWithValue("numero",administrativeDocument.number)
-            .hasFieldOrPropertyWithValue("codOrganismo",administrativeDocument.codOrganism)
+            .hasFieldOrPropertyWithValue("number",administrativeDocument.number)
+            .hasFieldOrPropertyWithValue("codOrganism",administrativeDocument.codOrganism)
             .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
 
     }

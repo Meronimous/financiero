@@ -34,7 +34,7 @@ class AdministrativeDocument {
 
     @NotNull
     @NotBlank(message="La descripción no debe estar vacía")
-    var Description:String =""
+    var description:String =""
 //Expedientes
 
 }

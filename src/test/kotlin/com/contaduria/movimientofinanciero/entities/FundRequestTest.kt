@@ -38,9 +38,9 @@ internal class FundRequestTest {
     @BeforeEach
     fun setUp() {
 
-//        ADMINISTRATIVEDOCUMENT.id = 0
+        ADMINISTRATIVEDOCUMENT.id = 0
         ADMINISTRATIVEDOCUMENT.codOrganism = 3080
-        ADMINISTRATIVEDOCUMENT.Description = " anjkbsdb"
+        ADMINISTRATIVEDOCUMENT.description = " anjkbsdb"
         ADMINISTRATIVEDOCUMENT.year = 2020
         ADMINISTRATIVEDOCUMENT.number = 123
 
@@ -55,8 +55,8 @@ internal class FundRequestTest {
 
     @AfterEach
     fun tearDown() {
-        this.administrativeDocumentRepository.deleteAll()
         this.fundRequestRepository.deleteAll()
+        this.administrativeDocumentRepository.deleteAll()
     }
 
     //save
