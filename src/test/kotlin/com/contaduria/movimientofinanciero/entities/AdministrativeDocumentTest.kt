@@ -11,8 +11,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.test.context.junit.jupiter.SpringExtension
 
-
+@ExtendWith(SpringExtension::class)
 @SpringBootTest
 @AutoConfigureTestDatabase
 internal class AdministrativeDocumentTest {
@@ -25,6 +27,7 @@ internal class AdministrativeDocumentTest {
     fun setUp() {
         administrativeDocument.id = 0
         administrativeDocument.codOrganism = 3080
+        administrativeDocument.Description = " anjkbsdb"
         administrativeDocument.year = 2020
         administrativeDocument.number = 123
     }
@@ -39,8 +42,8 @@ internal class AdministrativeDocumentTest {
         var administrativeDocumentRetrieved:AdministrativeDocument = this.administrativeDocumentRepository.save(administrativeDocument)
         assertThat(administrativeDocumentRetrieved)
             .hasFieldOrProperty("id")
-            .hasFieldOrPropertyWithValue("numero",administrativeDocument.number)
-            .hasFieldOrPropertyWithValue("codOrganismo",administrativeDocument.codOrganism)
+            .hasFieldOrPropertyWithValue("number",administrativeDocument.number)
+            .hasFieldOrPropertyWithValue("codOrganism",administrativeDocument.codOrganism)
             .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
     }
     //findById

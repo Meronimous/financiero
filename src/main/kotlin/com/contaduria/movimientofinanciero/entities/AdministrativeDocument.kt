@@ -17,8 +17,8 @@ import javax.validation.constraints.Positive
 class AdministrativeDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    open var id: Long = 0
+    @Column(name = "id")
+    var id: Long = 0
 
     @NotNull
     @Range(min=1000,max=9999)
@@ -33,7 +33,7 @@ class AdministrativeDocument {
     var year:Int =0
 
     @NotNull
-    @NotBlank
+    @NotBlank(message="La descripción no debe estar vacía")
     var Description:String =""
 //Expedientes
 

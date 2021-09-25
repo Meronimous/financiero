@@ -1,9 +1,7 @@
 server:
   port: 8080
   max-http-header-size: 40KB
-#spring:
-#  profiles:
-#    active: local
+spring:
   jackson:
     time-zone: America/Buenos_Aires
   jpa:
@@ -16,18 +14,19 @@ server:
         hibernate:
           envers:
             audit_table_prefix: audit_
-            audit_table_suffix: 
+            audit_table_suffix:
             revision_field_name: revision_id
             revision_type_field_name: revision_type
             use-new-id-generator-mappings: false
             store_data_at_delete: true
-  datasource:   
-    url: jdbc:postgresql://ec2-52-0-114-209.compute-1.amazonaws.com:5432/d2r57bjnodido2
-    username: yfmhnizeutmqjt
-    password: 71daa250de6b1ddecf0dfffa1e2e4d5490fa07f97915e070353437cf647e7f2b
+  datasource:
+    url: jdbc:postgresql://localhost:5432/financiero
+    username: postgres
+    password: 291080
+    platform: postgres
   servlet:
     multipart:
-      enabled: true      
+      enabled: true
       file-size-threshold: 0
       max-file-size: 5000000
       max-request-size: 10000000
@@ -72,4 +71,4 @@ img:
 temp:
   file-path: 'C:\Users\alive\Desktop\Dropbox\REPOS\logs\'
 uploadfolder:
-  file-path: 'C:\Users\alive\Desktop\Dropbox\REPOS\PedidosFondosAPIvar\uploaded'   
+  file-path: 'C:\Users\alive\Desktop\Dropbox\REPOS\PedidosFondosAPIvar\uploaded'
