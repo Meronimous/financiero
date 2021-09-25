@@ -1,7 +1,10 @@
 package com.contaduria.movimientofinanciero.entities
 
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository
+import com.contaduria.movimientofinanciero.repositories.FundRequestRepository
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -10,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.time.LocalDate
+import javax.validation.ConstraintViolationException
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
@@ -27,8 +31,8 @@ internal class FundRequestTest {
     @Autowired
     lateinit var administrativeDocumentRepository: AdministrativeDocumentRepository
 
-//    @Autowired
-//    lateinit var fundRequestRepository: FundRequestRepository
+    @Autowired
+    lateinit var fundRequestRepository: FundRequestRepository
 
 
     @BeforeEach
@@ -51,33 +55,33 @@ internal class FundRequestTest {
 
     @AfterEach
     fun tearDown() {
-//        this.administrativeDocumentRepository.deleteAll()/
-//        this.fundRequestRepository.deleteAll()
+        this.administrativeDocumentRepository.deleteAll()
+        this.fundRequestRepository.deleteAll()
     }
 
     //save
     @Test
     internal fun ShouldSaveEntity() {
-//        var fundRequestRetrieved: FundRequest =
-//            this.fundRequestRepository.save(fundRequest)
-//        assertThat(fundRequestRetrieved)
-//            .hasFieldOrProperty("id")
-//            .hasFieldOrPropertyWithValue("number", fundRequest.number)
-//            .hasFieldOrPropertyWithValue("organismCode", fundRequest.organismCode)
-//            .hasFieldOrPropertyWithValue("year", fundRequest.year)
+        var fundRequestRetrieved: FundRequest =
+            this.fundRequestRepository.save(fundRequest)
+        assertThat(fundRequestRetrieved)
+            .hasFieldOrProperty("id")
+            .hasFieldOrPropertyWithValue("number", fundRequest.number)
+            .hasFieldOrPropertyWithValue("organismCode", fundRequest.organismCode)
+            .hasFieldOrPropertyWithValue("year", fundRequest.year)
     }
 
     //findById
     @Test
     internal fun ShouldfindEntityById() {
-//        var fundRequestRetrieved: FundRequest =
-//            this.fundRequestRepository.save(fundRequest)
-//        this.fundRequestRepository.findById(fundRequestRetrieved.id).get()
-//        assertThat(fundRequestRetrieved)
-//            .hasFieldOrProperty("id")
-//            .hasFieldOrPropertyWithValue("number", fundRequest.number)
-//            .hasFieldOrPropertyWithValue("organismCode", fundRequest.organismCode)
-//            .hasFieldOrPropertyWithValue("year", fundRequest.year)
+        var fundRequestRetrieved: FundRequest =
+            this.fundRequestRepository.save(fundRequest)
+        this.fundRequestRepository.findById(fundRequestRetrieved.id).get()
+        assertThat(fundRequestRetrieved)
+            .hasFieldOrProperty("id")
+            .hasFieldOrPropertyWithValue("number", fundRequest.number)
+            .hasFieldOrPropertyWithValue("organismCode", fundRequest.organismCode)
+            .hasFieldOrPropertyWithValue("year", fundRequest.year)
 
     }
 
@@ -85,59 +89,59 @@ internal class FundRequestTest {
     @Test
     internal fun ShouldDeleteEntity() {
 
-//        var fundRequestRetrieved: FundRequest =
-//            this.fundRequestRepository.save(fundRequest)
-//        this.fundRequestRepository.deleteById(fundRequestRetrieved.id)
+        var fundRequestRetrieved: FundRequest =
+            this.fundRequestRepository.save(fundRequest)
+        this.fundRequestRepository.deleteById(fundRequestRetrieved.id)
     }
     //DeleteAll
 
     //number
     @Test
     internal fun ShouldThrowExceptionIfNumberIsNegative() {
-//        fundRequest.number= -1
-//        assertThrows(ConstraintViolationException::class.java) {
-//            this.fundRequestRepository.save(fundRequest)
-//        }
+        fundRequest.number= -1
+        assertThrows(ConstraintViolationException::class.java) {
+            this.fundRequestRepository.save(fundRequest)
+        }
     }
 
     //codOrganism
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsNegative() {
-//        fundRequest.organismCode= -1000
-//        assertThrows(ConstraintViolationException::class.java) {
-//            this.fundRequestRepository.save(fundRequest)
-//        }
+        fundRequest.organismCode= -1000
+        assertThrows(ConstraintViolationException::class.java) {
+            this.fundRequestRepository.save(fundRequest)
+        }
     }
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsLessThanFourDigits() {
-//        fundRequest.organismCode= 999
-//        assertThrows(ConstraintViolationException::class.java) {
-//            this.fundRequestRepository.save(fundRequest)
-//        }
+        fundRequest.organismCode= 999
+        assertThrows(ConstraintViolationException::class.java) {
+            this.fundRequestRepository.save(fundRequest)
+        }
     }
 
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsMoreThanFourDigits() {
-//        fundRequest.organismCode= 10001
-//        assertThrows(ConstraintViolationException::class.java) {
-//            this.fundRequestRepository.save(fundRequest)
-//        }
+        fundRequest.organismCode= 10001
+        assertThrows(ConstraintViolationException::class.java) {
+            this.fundRequestRepository.save(fundRequest)
+        }
     }
     //    Year
     @Test
     internal fun ShouldThrowExceptionIfYearIsBelowRange() {
         fundRequest.year= 2015
-//        assertThrows(ConstraintViolationException::class.java) {
-//            this.fundRequestRepository.save(fundRequest)
-//        }
+        assertThrows(ConstraintViolationException::class.java) {
+            this.fundRequestRepository.save(fundRequest)
+        }
     }
 
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsAboveRange() {
         fundRequest.year= 2100
-//        assertThrows(ConstraintViolationException::class.java) {
-//            this.fundRequestRepository.save(fundRequest)
-//        }
+        assertThrows(ConstraintViolationException::class.java) {
+            this.fundRequestRepository.save(fundRequest)
+        }
     }
 
 }

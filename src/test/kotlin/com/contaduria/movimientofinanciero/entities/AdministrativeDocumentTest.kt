@@ -49,21 +49,21 @@ internal class AdministrativeDocumentTest {
     //findById
     @Test
     internal fun ShouldfindEntityById(){
-//        var administrativeDocumentRetrieved:AdministrativeDocument =this.administrativeDocumentRepository.save(administrativeDocument)
-//        this.administrativeDocumentRepository.findById(administrativeDocumentRetrieved.id).get()
-//        assertThat(administrativeDocumentRetrieved)
-//            .hasFieldOrProperty("id")
-//            .hasFieldOrPropertyWithValue("numero",administrativeDocument.number)
-//            .hasFieldOrPropertyWithValue("codOrganismo",administrativeDocument.codOrganism)
-//            .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
+        var administrativeDocumentRetrieved:AdministrativeDocument =this.administrativeDocumentRepository.save(administrativeDocument)
+        this.administrativeDocumentRepository.findById(administrativeDocumentRetrieved.id).get()
+        assertThat(administrativeDocumentRetrieved)
+            .hasFieldOrProperty("id")
+            .hasFieldOrPropertyWithValue("numero",administrativeDocument.number)
+            .hasFieldOrPropertyWithValue("codOrganismo",administrativeDocument.codOrganism)
+            .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
 
     }
     //delete
     @Test
     internal fun ShouldDeleteEntity(){
 
-//        var administrativeDocumentRetrieved:AdministrativeDocument =this.administrativeDocumentRepository.save(administrativeDocument)
-//        this.administrativeDocumentRepository.deleteById(administrativeDocumentRetrieved.id)
+        var administrativeDocumentRetrieved:AdministrativeDocument =this.administrativeDocumentRepository.save(administrativeDocument)
+        this.administrativeDocumentRepository.deleteById(administrativeDocumentRetrieved.id)
     }
     //DeleteAll
 
