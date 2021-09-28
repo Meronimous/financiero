@@ -3,12 +3,15 @@ package com.contaduria.movimientofinanciero.services.impl;
 import com.contaduria.movimientofinanciero.dto.AdministrativeDocumentDto;
 import com.contaduria.movimientofinanciero.dto.FundRequestDto;
 import com.contaduria.movimientofinanciero.dto.MovementDto;
+import com.contaduria.movimientofinanciero.dto.UserDto;
 import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
 import com.contaduria.movimientofinanciero.entities.FundRequest;
 import com.contaduria.movimientofinanciero.entities.Movement;
+import com.contaduria.movimientofinanciero.entities.FinancialUser;
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository;
 import com.contaduria.movimientofinanciero.repositories.FundRequestRepository;
 import com.contaduria.movimientofinanciero.repositories.MovementRepository;
+import com.contaduria.movimientofinanciero.repositories.UserRepository;
 import com.contaduria.movimientofinanciero.services.ConvertService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -30,6 +33,10 @@ public class ConvertServiceImpl implements ConvertService {
 
     @Autowired
     private MovementRepository movementRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
 //  <Expedientes>
     @Override
@@ -128,13 +135,51 @@ public class ConvertServiceImpl implements ConvertService {
     private HashMap<String, Object> getMetadataMovement(Page<Movement> movements) {
         this.logger.debug("START getMetadata( movements)");
         HashMap<String, Object> metadata = new HashMap<>();
-        metadata.put("total", this.fundRequestRepository.count());
+        metadata.put("total", this.movementRepository.count());
         metadata.put("filteredCount", movements.getTotalElements());
         metadata.put("page", movements.getNumber());
         metadata.put("pageSize", movements.getSize());
         return metadata;
     }
     // </Movimientos>
+
+    // <Usuario>
+
+    @Override
+    public FinancialUser convertToEntity(UserDto userDto) {
+        this.logger.debug("START convertToEntity(UserDto id={})", userDto.getId());
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(userDto, FinancialUser.class);
+    }
+
+    @Override
+    public UserDto convertToDto(FinancialUser user) {
+        this.logger.debug("START convertToDto(User id={})",user.getId());
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    @Override
+    public HashMap<String, Object> convertToFormatUser(Page<FinancialUser> users) {
+        this.logger.debug("START convertToFormatAdministrativeDocument(administrativeDocuments)");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("metadata", getMetadataUser(users));
+        map.put("records", users.map(user -> this.convertToDto(user)).getContent());
+        return map;
+    }
+
+    private HashMap<String, Object> getMetadataUser(Page<FinancialUser> users) {
+        this.logger.debug("START getMetadata( users)");
+        HashMap<String, Object> metadata = new HashMap<>();
+        metadata.put("total", this.userRepository.count());
+        metadata.put("filteredCount", users.getTotalElements());
+        metadata.put("page", users.getNumber());
+        metadata.put("pageSize", users.getSize());
+        return metadata;
+    }
+    // </Usuario>
+
+
 
 
 }

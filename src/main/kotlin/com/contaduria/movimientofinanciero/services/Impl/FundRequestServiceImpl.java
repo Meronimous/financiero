@@ -30,7 +30,7 @@ public class FundRequestServiceImpl implements FundRequestService {
     @Override
     public FundRequestDto create(FundRequestDto fundRequestDto) {
         this.logger.debug("START create(" + fundRequestDto + ")");
-        fundRequestDto.setId(0);
+        fundRequestDto.setId(0L);
         return this.convertService.convertToDto(this.fundRequestRepository.save(this.convertService.convertToEntity(fundRequestDto)));
     }
 

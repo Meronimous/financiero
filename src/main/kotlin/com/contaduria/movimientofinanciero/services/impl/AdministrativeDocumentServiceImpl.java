@@ -2,6 +2,7 @@ package com.contaduria.movimientofinanciero.services.impl;
 
 import com.contaduria.movimientofinanciero.dto.AdministrativeDocumentDto;
 import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
+import com.contaduria.movimientofinanciero.exceptions.DataIntegrityViolationException;
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository;
 import com.contaduria.movimientofinanciero.services.AdministrativeDocumentService;
 import com.contaduria.movimientofinanciero.services.ConvertService;
@@ -10,10 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
+
 @Service
 public class AdministrativeDocumentServiceImpl implements AdministrativeDocumentService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -26,10 +30,20 @@ public class AdministrativeDocumentServiceImpl implements AdministrativeDocument
     private ConvertService convertService;
 
     @Override
-    public AdministrativeDocumentDto create(AdministrativeDocumentDto administrativeDocumentDto) {
+    public AdministrativeDocumentDto create(AdministrativeDocumentDto administrativeDocumentDto) throws Exception {
         this.logger.debug("START create(" + administrativeDocumentDto + ")");
-        return this.convertService.convertToDto(this.administrativeDocumentRepository.save(this.convertService.convertToEntity(administrativeDocumentDto)));
+        Specification<AdministrativeDocument> specific = Specification
+                .where(AdministrativeDocumentSpecification.documentnumber(administrativeDocumentDto.getNumber())
+                        .and(AdministrativeDocumentSpecification.documentCodOrganism(administrativeDocumentDto.getCodOrganism()))
+                        .and(AdministrativeDocumentSpecification.documentYear(administrativeDocumentDto.getYear())));
+        List<AdministrativeDocument> administrativeDocuments = administrativeDocumentRepository.findAll(specific);
+        if (administrativeDocuments.isEmpty()) {
+        return this.convertService.convertToDto(this.administrativeDocumentRepository.save(this.convertService.convertToEntity(administrativeDocumentDto)));}
+        else {
+            throw new DataIntegrityViolationException("Ya existe un expediente con el denominador " + administrativeDocumentDto.getCodOrganism() + "-" + administrativeDocumentDto.getNumber() + "/" + administrativeDocumentDto.getYear());
+        }
     }
+
 
     @Override
     public AdministrativeDocumentDto edit(Long id, AdministrativeDocumentDto administrativeDocumentDto) {

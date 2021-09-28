@@ -3,7 +3,6 @@ import lombok.*
 import org.hibernate.validator.constraints.Range
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Positive
 
@@ -24,7 +23,9 @@ public class Movement {
 
     var description:String = ""
 
-    lateinit var date:LocalDate
+    var date:LocalDate = LocalDate.now()
+
+    lateinit var dateCertificate:LocalDate
 
     @Positive
     var certificateNumber:Int = 0
@@ -32,9 +33,10 @@ public class Movement {
     @Positive
     var numOrder:Int = 0
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "fund_request_id")
-    lateinit var fundRequest: FundRequest
+    @ToString.Exclude
+    var fundRequest: FundRequest?= null
 
     @Range(min=1,max=9)
     var orderCod:Int = 0
@@ -48,7 +50,7 @@ public class Movement {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    lateinit var user: User
+    lateinit var user: FinancialUser
 
     //Movimientos
 }

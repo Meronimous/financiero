@@ -23,16 +23,16 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(value = "Expedientes", tags = "Expedientes")
 public interface AdministrativeDocumentController {
 
-    @ApiOperation(value = "Crear una orden de entrega.")
+    @ApiOperation(value = "Crear un expediente.")
     public ResponseEntity<AdministrativeDocumentDto> create(@Valid @RequestBody AdministrativeDocumentDto administrativeDocumentDto) throws Exception;
 
-    @ApiOperation(value = "Buscar una orden de entrega.")
+    @ApiOperation(value = "Buscar un expediente.")
     public ResponseEntity<AdministrativeDocumentDto> findById(@PathVariable Long id) throws Exception;
 
-    @ApiOperation(value = "Editar una orden de entrega.")
+    @ApiOperation(value = "Editar un expediente.")
     public ResponseEntity<AdministrativeDocumentDto> edit(@PathVariable Long id, @Valid  @RequestBody AdministrativeDocumentDto administrativeDocumentDto) throws Exception;
 
-    @ApiOperation(value = "Borrar una orden de entrega.")
+    @ApiOperation(value = "Borrar un expediente.")
     public ResponseEntity<AdministrativeDocumentDto> deleteById(@PathVariable Long id) throws Exception;
 
     @ApiImplicitParams({
@@ -41,6 +41,6 @@ public interface AdministrativeDocumentController {
             @ApiImplicitParam(name = "sort", dataType = "integer", paramType = "query", value = "Criterio de ordenamiento en formato: propiedades[ ,asc | ,desc ].\n"
                     + "Orden por defecto es ID ASC.\n"
                     + "Ordenamiento con múltiples criterios es soportado.", defaultValue = "id,asc")})
-    @ApiOperation(value = "Obtener todas las ordenes de entrega.")
+    @ApiOperation(value = "Obtener todas los expedientes.")
     public HashMap<String, Object> findAll(AdministrativeDocumentSpecification spec,@ApiIgnore @PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable);
 }

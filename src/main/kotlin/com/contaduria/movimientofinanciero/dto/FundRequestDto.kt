@@ -1,10 +1,7 @@
 package com.contaduria.movimientofinanciero.dto
 
-import com.contaduria.movimientofinanciero.entities.AdministrativeDocument
-import lombok.AllArgsConstructor
-import lombok.Getter
-import lombok.NoArgsConstructor
-import lombok.Setter
+import com.fasterxml.jackson.annotation.*
+import lombok.*
 import java.time.LocalDate
 
 @Getter
@@ -12,15 +9,19 @@ import java.time.LocalDate
 @AllArgsConstructor
 @NoArgsConstructor
 class FundRequestDto {
-    var id: Long = 0
+    var id: Long? = null
 
-    var number:Int = 0
+    var number:Int? = null
 
-    var year: Int = 0
+    var year: Int? = null
 
-    var organismCode:Int =0
+    var organismCode:Int? = null
 
-    lateinit var date: LocalDate
+    var date: LocalDate? = null
 
-    lateinit var administrativeDocument: AdministrativeDocumentDto
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var administrativeDocument: AdministrativeDocumentDto?=null
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var movements:List<MovementDto>? = null
 }

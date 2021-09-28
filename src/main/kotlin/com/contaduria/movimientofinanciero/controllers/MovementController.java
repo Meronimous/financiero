@@ -21,16 +21,16 @@ import java.util.HashMap;
 @Api(value = "Movimientos", tags = "Movimientos")
 public interface MovementController {
 
-    @ApiOperation(value = "Crear una orden de entrega.", authorizations = { @Authorization(value = "Authorization") })
+    @ApiOperation(value = "Crear un movimiento financiero.", authorizations = { @Authorization(value = "Authorization") })
     public ResponseEntity<MovementDto> create(@Valid @RequestBody MovementDto movementDto) throws Exception;
 
-    @ApiOperation(value = "Buscar una orden de entrega.", authorizations = { @Authorization(value = "Authorization") })
+    @ApiOperation(value = "Buscar un movimiento financiero.", authorizations = { @Authorization(value = "Authorization") })
     public ResponseEntity<MovementDto> findById(@PathVariable Long id) throws Exception;
 
-    @ApiOperation(value = "Editar una orden de entrega.", authorizations = { @Authorization(value = "Authorization") })
+    @ApiOperation(value = "Editar un movimiento financiero.", authorizations = { @Authorization(value = "Authorization") })
     public ResponseEntity<MovementDto> edit(@PathVariable Long id, @Valid  @RequestBody MovementDto movementDto) throws Exception;
 
-    @ApiOperation(value = "Borrar una orden de entrega.", authorizations = { @Authorization(value = "Authorization") })
+    @ApiOperation(value = "Borrar un movimiento financiero.", authorizations = { @Authorization(value = "Authorization") })
     public ResponseEntity<MovementDto> deleteById(@PathVariable Long id) throws Exception;
 
     @ApiImplicitParams({
@@ -43,6 +43,6 @@ public interface MovementController {
             @ApiImplicitParam(name = "codOrganism", dataType = "long", paramType = "query", value = "Buscar por código de Organismo."),
             @ApiImplicitParam(name = "number", dataType = "long", paramType = "query", value = "Buscar por número."),
             @ApiImplicitParam(name = "year", dataType = "short", paramType = "query", value = "Buscar por año del ejercicio.")})
-    @ApiOperation(value = "Obtener todas las ordenes de entrega.", authorizations = { @Authorization(value = "Authorization")})
+    @ApiOperation(value = "Obtener todos los movimientos financieros.", authorizations = { @Authorization(value = "Authorization")})
     public HashMap<String, Object> findAll(MovementSpecification spec, @ApiIgnore @PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable);
 }

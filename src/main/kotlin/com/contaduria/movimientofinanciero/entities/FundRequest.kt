@@ -27,10 +27,13 @@ class FundRequest {
     @Range(min=1000,max=9999)
     var organismCode:Int =0
 
-    lateinit var date: LocalDate
+    var date: LocalDate = LocalDate.now()
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "administrative_document_id")
-    lateinit var administrativeDocument:AdministrativeDocument
+    var administrativeDocument:AdministrativeDocument? = null
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "fundRequest")
+    var movements: List<Movement>? = null
 //Pedidos de Fondos
 }

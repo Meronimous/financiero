@@ -4,6 +4,7 @@ import com.contaduria.movimientofinanciero.dto.MovementDto;
 import com.contaduria.movimientofinanciero.specifications.MovementSpecification;
 import org.springframework.data.domain.Pageable;
 
+import javax.validation.ValidationException;
 import java.util.HashMap;
 
 public interface MovementService {
@@ -11,7 +12,7 @@ public interface MovementService {
 
     public MovementDto edit(Long id, MovementDto movementDto);
 
-    public void delete(Long id);
+    public void delete(Long id) throws ValidationException, Exception;
 
     public MovementDto findById(Long id);
 

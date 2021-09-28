@@ -1,7 +1,9 @@
 package com.contaduria.movimientofinanciero.dto
 
 import com.contaduria.movimientofinanciero.entities.FundRequest
-import com.contaduria.movimientofinanciero.entities.User
+import com.contaduria.movimientofinanciero.entities.FinancialUser
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.AllArgsConstructor
 import lombok.Getter
 import lombok.NoArgsConstructor
@@ -18,19 +20,20 @@ import javax.validation.constraints.Positive
 @AllArgsConstructor
 @NoArgsConstructor
 class MovementDto {
-    open var id: Long = 0
+    var id: Long? = null
 
     var movementCode:Long = 0
 
     var description:String = ""
 
-    lateinit var date: LocalDate
+    lateinit var dateCertificate: LocalDate
 
     var certificateNumber:Int = 0
 
     var numOrder:Int = 0
 
-    lateinit var fundRequest: FundRequestDto
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var fundRequest: FundRequestDto? =null
 
     var orderCod:Int = 0
 
@@ -40,6 +43,8 @@ class MovementDto {
 
     var movementAmount: BigDecimal = BigDecimal.ZERO
 
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     lateinit var user: UserDto
 
 }
