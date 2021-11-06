@@ -1,19 +1,13 @@
 package com.contaduria.movimientofinanciero.dto
 
-import com.contaduria.movimientofinanciero.entities.FundRequest
-import com.contaduria.movimientofinanciero.entities.FinancialUser
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.AllArgsConstructor
 import lombok.Getter
 import lombok.NoArgsConstructor
 import lombok.Setter
-import org.hibernate.validator.constraints.Range
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.persistence.JoinColumn
-import javax.persistence.OneToOne
-import javax.validation.constraints.Positive
 
 @Getter
 @Setter
@@ -25,6 +19,8 @@ class MovementDto {
     var movementCode:Long = 0
 
     var description:String = ""
+
+    lateinit var date:LocalDate
 
     lateinit var dateCertificate: LocalDate
 
@@ -43,8 +39,5 @@ class MovementDto {
 
     var movementAmount: BigDecimal = BigDecimal.ZERO
 
-
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    lateinit var user: UserDto
 
 }

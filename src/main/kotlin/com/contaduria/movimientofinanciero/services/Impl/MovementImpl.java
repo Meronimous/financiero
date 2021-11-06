@@ -3,9 +3,11 @@ package com.contaduria.movimientofinanciero.services.impl;
 import com.contaduria.movimientofinanciero.dto.MovementDto;
 import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
 import com.contaduria.movimientofinanciero.entities.Movement;
+import com.contaduria.movimientofinanciero.exceptions.ValidationException;
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository;
 import com.contaduria.movimientofinanciero.repositories.FundRequestRepository;
 import com.contaduria.movimientofinanciero.repositories.MovementRepository;
+import com.contaduria.movimientofinanciero.repositories.UserRepository;
 import com.contaduria.movimientofinanciero.services.MovementService;
 import com.contaduria.movimientofinanciero.services.ConvertService;
 import com.contaduria.movimientofinanciero.specifications.MovementSpecification;
@@ -16,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -34,13 +35,19 @@ public class MovementImpl implements MovementService {
     private FundRequestRepository fundRequestRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ConvertService convertService;
 
     @Override
     public MovementDto create(MovementDto movementDto) {
         this.logger.debug("START create(" + movementDto + ")");
         movementDto.setId(null);
-        validateMovement(movementDto);
+        if (!validateMovement(movementDto)) {
+            throw new ValidationException("El monto ingresado supera los ingresos recibidos, por favor verifique.");
+        }
+
         return this.convertService.convertToDto(this.movementRepository.save(this.convertService.convertToEntity(movementDto)));
     }
     private boolean validateMovement(MovementDto movementDto) {
@@ -49,9 +56,9 @@ public class MovementImpl implements MovementService {
 //RC02
             Double amountIncome = (amountSpent(administrativeDocument,3L));
 
-            Double amountspent = (amountSpent(administrativeDocument,1L));
+            Double amountSpent = (amountSpent(administrativeDocument,1L));
 
-            return ((movementDto.getMovementAmount().doubleValue() + amountspent) <= amountIncome);
+            return (amountIncome >= (movementDto.getMovementAmount().doubleValue() + amountSpent));
         } else {
             return true;
         }

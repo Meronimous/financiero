@@ -13,7 +13,5 @@ class UserDto {
     var telephone:String?= null
     var password:String? = null
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var movementDto: MovementDto?=null
 
 }

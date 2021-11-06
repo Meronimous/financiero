@@ -7,7 +7,7 @@ import com.contaduria.movimientofinanciero.dto.UserDto;
 import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
 import com.contaduria.movimientofinanciero.entities.FundRequest;
 import com.contaduria.movimientofinanciero.entities.Movement;
-import com.contaduria.movimientofinanciero.entities.FinancialUser;
+import com.contaduria.movimientofinanciero.entities.User;
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository;
 import com.contaduria.movimientofinanciero.repositories.FundRequestRepository;
 import com.contaduria.movimientofinanciero.repositories.MovementRepository;
@@ -146,21 +146,21 @@ public class ConvertServiceImpl implements ConvertService {
     // <Usuario>
 
     @Override
-    public FinancialUser convertToEntity(UserDto userDto) {
+    public User convertToEntity(UserDto userDto) {
         this.logger.debug("START convertToEntity(UserDto id={})", userDto.getId());
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(userDto, FinancialUser.class);
+        return modelMapper.map(userDto, User.class);
     }
 
     @Override
-    public UserDto convertToDto(FinancialUser user) {
+    public UserDto convertToDto(User user) {
         this.logger.debug("START convertToDto(User id={})",user.getId());
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(user, UserDto.class);
     }
 
     @Override
-    public HashMap<String, Object> convertToFormatUser(Page<FinancialUser> users) {
+    public HashMap<String, Object> convertToFormatUser(Page<User> users) {
         this.logger.debug("START convertToFormatAdministrativeDocument(administrativeDocuments)");
         HashMap<String, Object> map = new HashMap<>();
         map.put("metadata", getMetadataUser(users));
@@ -168,7 +168,7 @@ public class ConvertServiceImpl implements ConvertService {
         return map;
     }
 
-    private HashMap<String, Object> getMetadataUser(Page<FinancialUser> users) {
+    private HashMap<String, Object> getMetadataUser(Page<User> users) {
         this.logger.debug("START getMetadata( users)");
         HashMap<String, Object> metadata = new HashMap<>();
         metadata.put("total", this.userRepository.count());

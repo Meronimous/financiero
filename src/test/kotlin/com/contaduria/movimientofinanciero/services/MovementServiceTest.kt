@@ -3,11 +3,10 @@ package com.contaduria.movimientofinanciero.services
 import com.contaduria.movimientofinanciero.dto.MovementDto
 import com.contaduria.movimientofinanciero.entities.AdministrativeDocument
 import com.contaduria.movimientofinanciero.entities.FundRequest
-import com.contaduria.movimientofinanciero.entities.FinancialUser
+import com.contaduria.movimientofinanciero.entities.User
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository
 import com.contaduria.movimientofinanciero.repositories.FundRequestRepository
 import com.contaduria.movimientofinanciero.repositories.MovementRepository
-import com.contaduria.movimientofinanciero.repositories.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -39,8 +38,6 @@ class  MovementServiceTest {
     @Autowired
     lateinit var fundRequestRepository: FundRequestRepository
 
-    @Autowired
-    lateinit var userRepository: UserRepository
 
 
     @Autowired
@@ -63,14 +60,14 @@ class  MovementServiceTest {
     private val USERLASTNAME:String = "UserLastName"
     private val USERNAMES:String = "UserNames"
 
-    private val USER:FinancialUser = FinancialUser()
+    private val USER:User = User()
 
     @BeforeEach
     fun setUp() {
         USER.userDni= USERDNI
         USER.password = USERPASSWORD
         USER.names = USERNAMES
-        USER.lastName=USERLASTNAME
+//        USER.lastName=USERLASTNAM== 200E
 
 
 
@@ -97,7 +94,6 @@ class  MovementServiceTest {
         movementDto.description = DESCRIPTION
         movementDto.numOrder = NUMORDER
         movementDto.movementCode = MOVEMENTCODE
-        movementDto.user = this.converService.convertToDto(userRepository.save(USER))
 
     }
 
@@ -106,7 +102,6 @@ class  MovementServiceTest {
         this.movementRepository.deleteAll()
         this.fundRequestRepository.deleteAll()
         this.administrativeDocumentRepository.deleteAll()
-        this.userRepository.deleteAll()
     }
 
     //save

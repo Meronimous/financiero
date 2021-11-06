@@ -16,14 +16,13 @@ public class Movement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Long = 0
+    open var id: Long? = null
 
     var movementCode:Long = 0
 
-
     var description:String = ""
 
-    var date:LocalDate = LocalDate.now()
+    lateinit var date:LocalDate
 
     lateinit var dateCertificate:LocalDate
 
@@ -40,17 +39,19 @@ public class Movement {
 
     @Range(min=1,max=9)
     var orderCod:Int = 0
+
     @Range(min=1,max=9)
     var fundClass:Int = 0
+
     @Range(min=1,max=9)
     var imputationCode:Int = 0
 
     @Positive
     var movementAmount: BigDecimal = BigDecimal.ZERO
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    lateinit var user: FinancialUser
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    lateinit var user: User
 
     //Movimientos
 }

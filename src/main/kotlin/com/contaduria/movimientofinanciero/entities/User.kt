@@ -14,7 +14,7 @@ import javax.validation.constraints.Size
 @Entity
 @ToString
 @Table( name="financialuser",uniqueConstraints = [(UniqueConstraint(columnNames = ["userDni"]))])
-class FinancialUser {
+class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -44,10 +44,10 @@ class FinancialUser {
     @ToString.Exclude
     var password:String =""
 
-    @ManyToOne
-    @JoinColumn(name = "movement_id")
-    @ToString.Exclude
-    var movement: Movement?= null
+//    @ManyToOne
+//    @JoinColumn(name = "movement_id")
+//    @ToString.Exclude
+//    var movement: Movement?= null
 
 //Usuarios
 }

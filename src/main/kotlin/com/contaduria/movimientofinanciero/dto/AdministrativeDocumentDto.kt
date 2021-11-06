@@ -21,5 +21,5 @@ class AdministrativeDocumentDto {
     var year:Int? = null
     var description:String? = null
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var fundRequests:List<FundRequestDto>? = null
+    var fundRequests:List<FundRequestDto> = arrayListOf<FundRequestDto>()
 }

@@ -16,6 +16,7 @@ import javax.validation.constraints.Positive
 @ToString
 @Table( uniqueConstraints = [(UniqueConstraint(columnNames = ["number","year","codOrganism"]))])
 class AdministrativeDocument {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,16 +31,15 @@ class AdministrativeDocument {
     var number:Int = 0
 
     @NotNull
-    @Range(min=2016,max=2099)
+    @Range(min=2016,max=2099,message = "el año del Expediente no debe ser inferior a 2016, ni superior a 2099")
     var year:Int =0
 
-    @NotNull
     @NotBlank(message="La descripción no debe estar vacía")
-    var description:String =""
+    var description:String =" "
 
-    @OneToMany(cascade = [CascadeType.REMOVE])
+    @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "administrative_document_id")
-    var fundRequests: List<FundRequest>? = null
+    var fundRequests: List<FundRequest> = arrayListOf<FundRequest>();
 
 
 //Expedientes

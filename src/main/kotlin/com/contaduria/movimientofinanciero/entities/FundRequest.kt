@@ -15,7 +15,7 @@ import javax.validation.constraints.Positive
 class FundRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     var id: Long = 0
 
     @Positive(message="el número debe ser positivo mayor a cero")
