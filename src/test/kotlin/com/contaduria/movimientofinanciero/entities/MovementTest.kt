@@ -5,7 +5,6 @@ import com.contaduria.movimientofinanciero.repositories.FundRequestRepository
 import com.contaduria.movimientofinanciero.repositories.MovementRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

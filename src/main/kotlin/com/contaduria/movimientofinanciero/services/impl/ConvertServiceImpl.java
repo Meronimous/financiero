@@ -58,7 +58,7 @@ public class ConvertServiceImpl implements ConvertService {
         this.logger.debug("START convertToFormatAdministrativeDocument(administrativeDocuments)");
         HashMap<String, Object> map = new HashMap<>();
         map.put("metadata", getMetadataAdministrativeDocument(administrativeDocuments));
-        map.put("records", administrativeDocuments.map(administrativeDocument -> this.convertToDto(administrativeDocument)).getContent());
+        map.put("records", administrativeDocuments.map(this::convertToDto).getContent());
         return map;
     }
 
@@ -93,7 +93,7 @@ public class ConvertServiceImpl implements ConvertService {
         this.logger.debug("START convertToFormatAdministrativeDocument(administrativeDocuments)");
         HashMap<String, Object> map = new HashMap<>();
         map.put("metadata", getMetadataFundRequest(fundRequests));
-        map.put("records", fundRequests.map(fundRequest -> this.convertToDto(fundRequest)).getContent());
+        map.put("records", fundRequests.map(this::convertToDto).getContent());
         return map;
     }
 
@@ -128,7 +128,7 @@ public class ConvertServiceImpl implements ConvertService {
         this.logger.debug("START convertToFormatAdministrativeDocument(administrativeDocuments)");
         HashMap<String, Object> map = new HashMap<>();
         map.put("metadata", getMetadataMovement(movements));
-        map.put("records", movements.map(movement -> this.convertToDto(movement)).getContent());
+        map.put("records", movements.map(this::convertToDto).getContent());
         return map;
     }
 
@@ -164,7 +164,7 @@ public class ConvertServiceImpl implements ConvertService {
         this.logger.debug("START convertToFormatAdministrativeDocument(administrativeDocuments)");
         HashMap<String, Object> map = new HashMap<>();
         map.put("metadata", getMetadataUser(users));
-        map.put("records", users.map(user -> this.convertToDto(user)).getContent());
+        map.put("records", users.map(this::convertToDto).getContent());
         return map;
     }
 

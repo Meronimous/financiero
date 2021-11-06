@@ -2,6 +2,7 @@ package com.contaduria.movimientofinanciero.services.impl;
 
 import com.contaduria.movimientofinanciero.dto.FundRequestDto;
 import com.contaduria.movimientofinanciero.entities.FundRequest;
+import com.contaduria.movimientofinanciero.exceptions.ResourceNotFoundException;
 import com.contaduria.movimientofinanciero.repositories.FundRequestRepository;
 import com.contaduria.movimientofinanciero.services.FundRequestService;
 import com.contaduria.movimientofinanciero.services.ConvertService;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

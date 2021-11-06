@@ -16,7 +16,7 @@ public class Movement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    var id: Long? = null
 
     var movementCode:Long = 0
 

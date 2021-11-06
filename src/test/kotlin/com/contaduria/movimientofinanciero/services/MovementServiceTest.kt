@@ -57,7 +57,6 @@ class  MovementServiceTest {
     private val FUNDREQUEST: FundRequest = FundRequest()
     private val USERDNI:Long = 12345678
     private val USERPASSWORD:String = "123456878"
-    private val USERLASTNAME:String = "UserLastName"
     private val USERNAMES:String = "UserNames"
 
     private val USER:User = User()

@@ -4,7 +4,6 @@ import lombok.*
 import org.hibernate.validator.constraints.Range
 import org.jetbrains.annotations.NotNull
 import javax.persistence.*
-import javax.transaction.Transactional
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
 
@@ -39,7 +38,7 @@ class AdministrativeDocument {
 
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "administrative_document_id")
-    var fundRequests: List<FundRequest> = arrayListOf<FundRequest>();
+    var fundRequests: List<FundRequest> = arrayListOf<FundRequest>()
 
 
 //Expedientes
