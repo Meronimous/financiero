@@ -11,15 +11,15 @@ import org.springframework.data.jpa.domain.Specification;
 @And({
         @Spec(path ="number", spec = Equal.class),
         @Spec(path ="year", spec = Equal.class),
-        @Spec(path ="codOrganism", spec = Equal.class),
+        @Spec(path ="codeOrganism", spec = Equal.class),
         @Spec(path ="description", spec = LikeIgnoreCase.class)}
 )
 public interface AdministrativeDocumentSpecification extends Specification<AdministrativeDocument>  {
     public static Specification<AdministrativeDocument> documentnumber(Integer number){
         return (number == null ) ? null : (administrativeDocument, cq, cb) -> cb.equal(administrativeDocument.get("number"), number);
     }
-    public static Specification<AdministrativeDocument> documentCodOrganism(Integer codOrganism){
-        return (codOrganism == null ) ? null : (administrativeDocument, cq, cb) -> cb.equal(administrativeDocument.get("codOrganism"), codOrganism);
+    public static Specification<AdministrativeDocument> documentCodeOrganism(Integer codeOrganism){
+        return (codeOrganism == null ) ? null : (administrativeDocument, cq, cb) -> cb.equal(administrativeDocument.get("codeOrganism"), codeOrganism);
     }
     public static Specification<AdministrativeDocument> documentYear(Integer year){
         return (year == null ) ? null : (administrativeDocument, cq, cb) -> cb.equal(administrativeDocument.get("year"), year);

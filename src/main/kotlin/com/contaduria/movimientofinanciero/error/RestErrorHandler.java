@@ -1,11 +1,13 @@
 package com.contaduria.movimientofinanciero.error;
 
 import com.contaduria.movimientofinanciero.exceptions.DataIntegrityViolationException;
+import com.contaduria.movimientofinanciero.exceptions.NotEnoughFundsException;
 import com.contaduria.movimientofinanciero.exceptions.PermissionException;
 import com.contaduria.movimientofinanciero.exceptions.ResourceNotFoundException;
 import com.contaduria.movimientofinanciero.exceptions.ValidationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -139,5 +141,20 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 		String message = ex.getLocalizedMessage() ;
 		this.logger.debug("ERROR- CONFLICT: Message:"+ ex.getMessage() + " - " );
 		return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, message));
+	}
+	@ExceptionHandler(ConstraintViolationException.class)
+	@ResponseStatus(HttpStatus.CONFLICT)
+	protected ResponseEntity<Object> handleConstraintViolationException(Exception ex) {
+		String message = ex.getLocalizedMessage() ;
+		this.logger.debug("ERROR- CONFLICT: Message:"+ ex.getMessage() + " - " );
+		return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, message));
+	}
+
+	@ExceptionHandler(NotEnoughFundsException.class)
+	@ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+	protected ResponseEntity<Object> handleNotEnoughFundsExceptionException(Exception ex) {
+		String message = ex.getLocalizedMessage() ;
+		this.logger.debug("ERROR- Not enough funds in selected Administrative Document" );
+		return buildResponseEntity(new ApiError(HttpStatus.I_AM_A_TEAPOT, message));
 	}
 }

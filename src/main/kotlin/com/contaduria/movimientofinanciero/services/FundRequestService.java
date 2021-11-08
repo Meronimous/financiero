@@ -1,6 +1,8 @@
 package com.contaduria.movimientofinanciero.services;
 
 import com.contaduria.movimientofinanciero.dto.FundRequestDto;
+import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
+import com.contaduria.movimientofinanciero.entities.FundRequest;
 import com.contaduria.movimientofinanciero.specifications.FundRequestSpecification;
 import org.springframework.data.domain.Pageable;
 
@@ -17,4 +19,6 @@ public interface FundRequestService {
     public FundRequestDto findById(Long id);
 
     public HashMap<String, Object> findAll(FundRequestSpecification spec, Pageable pageable);
+
+    public FundRequestDto findByNumberYearOrganismCode(FundRequestDto fundRequestDto);
 }

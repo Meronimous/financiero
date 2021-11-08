@@ -39,7 +39,7 @@ internal class FundRequestTest {
     fun setUp() {
 
         ADMINISTRATIVEDOCUMENT.id = 0
-        ADMINISTRATIVEDOCUMENT.codOrganism = 3080
+        ADMINISTRATIVEDOCUMENT.codeOrganism = 3080
         ADMINISTRATIVEDOCUMENT.description = " anjkbsdb"
         ADMINISTRATIVEDOCUMENT.year = 2020
         ADMINISTRATIVEDOCUMENT.number = 123

@@ -13,7 +13,7 @@ import lombok.*
 class AdministrativeDocumentDto {
 
     var id:Long? = null
-    var codOrganism:Int? = null
+    var codeOrganism:Int? = null
     var number:Int? = null
     var year:Int? = null
     var description:String? = null

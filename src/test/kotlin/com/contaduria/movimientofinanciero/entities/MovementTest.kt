@@ -46,7 +46,7 @@ class  MovementTest {
 
     @BeforeEach
     fun setUp() {
-        ADMINISTRATIVEDOCUMENT.codOrganism = 3080
+        ADMINISTRATIVEDOCUMENT.codeOrganism = 3080
         ADMINISTRATIVEDOCUMENT.description = " anjkbsdb"
         ADMINISTRATIVEDOCUMENT.year = 2020
         ADMINISTRATIVEDOCUMENT.number = 123

@@ -34,13 +34,13 @@ public class AdministrativeDocumentServiceImpl implements AdministrativeDocument
         this.logger.debug("START create(" + administrativeDocumentDto + ")");
         Specification<AdministrativeDocument> specific = Specification
                 .where(AdministrativeDocumentSpecification.documentnumber(administrativeDocumentDto.getNumber())
-                        .and(AdministrativeDocumentSpecification.documentCodOrganism(administrativeDocumentDto.getCodOrganism()))
+                        .and(AdministrativeDocumentSpecification.documentCodeOrganism(administrativeDocumentDto.getCodeOrganism()))
                         .and(AdministrativeDocumentSpecification.documentYear(administrativeDocumentDto.getYear())));
         List<AdministrativeDocument> administrativeDocuments = administrativeDocumentRepository.findAll(specific);
         if (administrativeDocuments.isEmpty()) {
         return this.convertService.convertToDto(this.administrativeDocumentRepository.save(this.convertService.convertToEntity(administrativeDocumentDto)));}
         else {
-            throw new DataIntegrityViolationException("Ya existe un expediente con el denominador " + administrativeDocumentDto.getCodOrganism() + "-" + administrativeDocumentDto.getNumber() + "/" + administrativeDocumentDto.getYear());
+            throw new DataIntegrityViolationException("Ya existe un expediente con el denominador " + administrativeDocumentDto.getCodeOrganism() + "-" + administrativeDocumentDto.getNumber() + "/" + administrativeDocumentDto.getYear());
         }
     }
 
@@ -71,4 +71,11 @@ public class AdministrativeDocumentServiceImpl implements AdministrativeDocument
         return this.convertService.convertToFormatAdministrativeDocument(this.administrativeDocumentRepository.findAll(spec, pageable));
     }
 
+    @Override
+    public AdministrativeDocument findOrCreate(AdministrativeDocument administrativeDocument) {
+        this.logger.debug("START findOrCreate({},{},{}",administrativeDocument.getYear(),administrativeDocument.getCodeOrganism(),administrativeDocument.getNumber());
+        AdministrativeDocument finalAdministrativeDocument = administrativeDocument;
+        return this.administrativeDocumentRepository.findByYearAndCodeOrganismAndNumber(administrativeDocument.getYear(),
+                administrativeDocument.getCodeOrganism(), administrativeDocument.getNumber()).orElseGet(() -> this.administrativeDocumentRepository.save(finalAdministrativeDocument));
+    }
 }

@@ -40,7 +40,7 @@ public interface MovementController {
                     + "Orden por defecto es ID ASC.\n"
                     + "Ordenamiento con múltiples criterios es soportado.", defaultValue = "id,asc"),
             @ApiImplicitParam(name = "description", dataType = "string", paramType = "query", value = "Buscar por descripción."),
-            @ApiImplicitParam(name = "codOrganism", dataType = "long", paramType = "query", value = "Buscar por código de Organismo."),
+            @ApiImplicitParam(name = "codeOrganism", dataType = "long", paramType = "query", value = "Buscar por código de Organismo."),
             @ApiImplicitParam(name = "number", dataType = "long", paramType = "query", value = "Buscar por número."),
             @ApiImplicitParam(name = "year", dataType = "short", paramType = "query", value = "Buscar por año del ejercicio.")})
     @ApiOperation(value = "Obtener todos los movimientos financieros.", authorizations = { @Authorization(value = "Authorization")})

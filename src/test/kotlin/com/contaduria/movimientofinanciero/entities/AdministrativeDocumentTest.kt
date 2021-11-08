@@ -26,7 +26,7 @@ internal class AdministrativeDocumentTest {
     @BeforeEach
     fun setUp() {
         administrativeDocument.id = 0
-        administrativeDocument.codOrganism = 3080
+        administrativeDocument.codeOrganism = 3080
         administrativeDocument.description = " anjkbsdb"
         administrativeDocument.year = 2020
         administrativeDocument.number = 123
@@ -43,7 +43,7 @@ internal class AdministrativeDocumentTest {
         assertThat(administrativeDocumentRetrieved)
             .hasFieldOrProperty("id")
             .hasFieldOrPropertyWithValue("number",administrativeDocument.number)
-            .hasFieldOrPropertyWithValue("codOrganism",administrativeDocument.codOrganism)
+            .hasFieldOrPropertyWithValue("codeOrganism",administrativeDocument.codeOrganism)
             .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
     }
     //findById
@@ -54,7 +54,7 @@ internal class AdministrativeDocumentTest {
         assertThat(administrativeDocumentRetrieved)
             .hasFieldOrProperty("id")
             .hasFieldOrPropertyWithValue("number",administrativeDocument.number)
-            .hasFieldOrPropertyWithValue("codOrganism",administrativeDocument.codOrganism)
+            .hasFieldOrPropertyWithValue("codeOrganism",administrativeDocument.codeOrganism)
             .hasFieldOrPropertyWithValue("year",administrativeDocument.year)
 
     }
@@ -78,14 +78,14 @@ internal fun ShouldThrowExceptionIfNumberIsNegative() {
 //codOrganism
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsNegative() {
-        administrativeDocument.codOrganism= -1000
+        administrativeDocument.codeOrganism= -1000
         assertThrows(ConstraintViolationException::class.java) {
             this.administrativeDocumentRepository.save(administrativeDocument)
         }
 }
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsLessThanFourDigits() {
-        administrativeDocument.codOrganism= 999
+        administrativeDocument.codeOrganism= 999
 assertThrows(ConstraintViolationException::class.java) {
     this.administrativeDocumentRepository.save(administrativeDocument)
 }
@@ -93,7 +93,7 @@ assertThrows(ConstraintViolationException::class.java) {
 
     @Test
     internal fun ShouldThrowExceptionIfOrganismIsMoreThanFourDigits() {
-        administrativeDocument.codOrganism= 10001
+        administrativeDocument.codeOrganism= 10001
         assertThrows(ConstraintViolationException::class.java) {
             this.administrativeDocumentRepository.save(administrativeDocument)
         }

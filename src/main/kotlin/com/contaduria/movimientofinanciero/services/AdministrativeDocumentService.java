@@ -1,6 +1,7 @@
 package com.contaduria.movimientofinanciero.services;
 
 import com.contaduria.movimientofinanciero.dto.AdministrativeDocumentDto;
+import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
 import com.contaduria.movimientofinanciero.specifications.AdministrativeDocumentSpecification;
 import org.springframework.data.domain.Pageable;
 
@@ -17,4 +18,7 @@ public interface AdministrativeDocumentService {
     public AdministrativeDocumentDto findById(Long id);
 
     public HashMap<String, Object> findAll(AdministrativeDocumentSpecification spec, Pageable pageable);
+
+    public AdministrativeDocument findOrCreate(AdministrativeDocument administrativeDocument);
+
 }

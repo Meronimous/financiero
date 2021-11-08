@@ -12,6 +12,7 @@ import javax.validation.constraints.Positive
 @NoArgsConstructor
 @Entity
 @ToString
+@Table( uniqueConstraints = [(UniqueConstraint(columnNames = ["number","year","organismCode"]))])
 class FundRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

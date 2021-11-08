@@ -3,11 +3,13 @@ package com.contaduria.movimientofinanciero.services.impl;
 import com.contaduria.movimientofinanciero.dto.MovementDto;
 import com.contaduria.movimientofinanciero.entities.AdministrativeDocument;
 import com.contaduria.movimientofinanciero.entities.Movement;
+import com.contaduria.movimientofinanciero.exceptions.NotEnoughFundsException;
 import com.contaduria.movimientofinanciero.exceptions.ValidationException;
 import com.contaduria.movimientofinanciero.repositories.AdministrativeDocumentRepository;
 import com.contaduria.movimientofinanciero.repositories.FundRequestRepository;
 import com.contaduria.movimientofinanciero.repositories.MovementRepository;
 import com.contaduria.movimientofinanciero.repositories.UserRepository;
+import com.contaduria.movimientofinanciero.services.FundRequestService;
 import com.contaduria.movimientofinanciero.services.MovementService;
 import com.contaduria.movimientofinanciero.services.ConvertService;
 import com.contaduria.movimientofinanciero.specifications.MovementSpecification;
@@ -38,30 +40,63 @@ public class MovementImpl implements MovementService {
     private UserRepository userRepository;
 
     @Autowired
+    private FundRequestService fundRequestService;
+
+    @Autowired
     private ConvertService convertService;
 
     @Override
     public MovementDto create(MovementDto movementDto) {
         this.logger.debug("START create(" + movementDto + ")");
         movementDto.setId(null);
-        if (!validateMovement(movementDto)) {
-            throw new ValidationException("El monto ingresado supera los ingresos recibidos, por favor verifique.");
-        }
+        movementDto.setFundRequest(fundRequestService.findByNumberYearOrganismCode(movementDto.getFundRequest()));
 
+        validateFunds(movementDto,false);
         return this.convertService.convertToDto(this.movementRepository.save(this.convertService.convertToEntity(movementDto)));
     }
-    private boolean validateMovement(MovementDto movementDto) {
-        if (movementDto.getImputationCode() == 1) {
+
+    private void validateFunds(MovementDto movementDto,Boolean edicion){
+        if (!validateMovement(movementDto,edicion)) {
+            throw new NotEnoughFundsException(" El monto ingresado supera los ingresos recibidos, por favor verifique.");
+        }
+    }
+
+    private boolean validateMovement(MovementDto movementDto,Boolean edicion) {
+        if (movementDto.getImputationCode()==1 && !edicion ) {
             AdministrativeDocument administrativeDocument = getAdministrativeDocument(movementDto);
 //RC02
+
             Double amountIncome = (amountSpent(administrativeDocument,3L));
 
             Double amountSpent = (amountSpent(administrativeDocument,1L));
 
-            return (amountIncome >= (movementDto.getMovementAmount().doubleValue() + amountSpent));
+            Double modifiedAmount = (movementDto.getImputationCode()==3)?movementDto.getMovementAmount().doubleValue() *-1 :movementDto.getMovementAmount().doubleValue();
+
+            return (amountIncome >= (modifiedAmount + amountSpent));
         } else {
-            return true;
+        if (edicion) {
+            AdministrativeDocument administrativeDocument = getAdministrativeDocument(movementDto);
+//RC02
+            Movement movement = movementRepository.findById(movementDto.getId()).get();
+
+            Double amountIncome = (amountSpent(administrativeDocument,3L));
+
+            Double amountSpent = (amountSpent(administrativeDocument,1L));
+
+            Double modifiedAmount = 0d;
+            if (movement.getImputationCode() == movementDto.getImputationCode()){
+                modifiedAmount = (movementDto.getImputationCode()==3)?((movement.getMovementAmount().doubleValue() - movementDto.getMovementAmount().doubleValue()))  :movementDto.getMovementAmount().doubleValue() - movement.getMovementAmount().doubleValue();
+            } else {
+                if (movement.getImputationCode() == 3) {
+                    modifiedAmount = (movementDto.getImputationCode()==1)?(movementDto.getMovementAmount().doubleValue() *-1) + movement.getMovementAmount().doubleValue() :movementDto.getMovementAmount().doubleValue();
+                }
+            }
+
+
+            return (amountIncome >= (modifiedAmount + amountSpent));
         }
+        }
+        return true;
     };
 
     private AdministrativeDocument getAdministrativeDocument(MovementDto movementDto) {
@@ -78,6 +113,7 @@ public class MovementImpl implements MovementService {
         this.logger.debug("START edit(" + id + ", " + movementDto + ")");
         Movement movement = this.movementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No existe un movimiento financiero con ID=" + id + "."));
         movementDto.setId(id);
+        validateFunds(movementDto,true);
         //RF08
         if (validateMonth(movement)) {
             return this.convertService.convertToDto(this.movementRepository.save(this.convertService.convertToEntity(movementDto)));
@@ -91,6 +127,7 @@ public class MovementImpl implements MovementService {
     public void delete(Long id) throws Exception {
         this.logger.debug("START delete(" + id + ")");
         Movement movement = this.movementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No existe un movimiento financiero con ID=" + id + "."));
+        validateFunds(this.convertService.convertToDto(movement),true);
         if (validateMonth(movement)) {
             this.movementRepository.deleteById(id);
         } else {

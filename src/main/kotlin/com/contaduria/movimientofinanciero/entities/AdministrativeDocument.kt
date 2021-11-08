@@ -13,7 +13,7 @@ import javax.validation.constraints.Positive
 @NoArgsConstructor
 @Entity
 @ToString
-@Table( uniqueConstraints = [(UniqueConstraint(columnNames = ["number","year","codOrganism"]))])
+@Table( uniqueConstraints = [(UniqueConstraint(columnNames = ["number","year","codeOrganism"]))])
 class AdministrativeDocument {
 
     @Id
@@ -23,7 +23,7 @@ class AdministrativeDocument {
 
     @NotNull
     @Range(min=1000,max=9999)
-    var codOrganism:Int = 0
+    var codeOrganism:Int = 0
 
     @NotNull
     @Positive(message="el número debe ser positivo mayor a cero")
